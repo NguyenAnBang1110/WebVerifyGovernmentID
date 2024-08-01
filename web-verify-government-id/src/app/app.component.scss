@@ -1,20 +1,26 @@
 :host {
     ::ng-deep {
+        .container {
+            margin: 0 96px;
+        }
+
         .form-container {
             display: flex;
             flex-direction: column;
+
             .form {
                 display: flex;
                 flex-direction: column;
             }
         }
+
         .button-container {
             display: flex;
             justify-content: center;
             gap: 10px;
             margin-top: 20px;
         }
-        
+
         .custom-button {
             background-color: #007bff;
             color: white;
@@ -24,20 +30,50 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+
+            &.custom-button-submit {
+                margin-top: 24px;
+            }
         }
-        
+
         .custom-button:hover {
             background-color: #0056b3;
         }
-        
+
         .custom-button:active {
             background-color: #003d80;
         }
-        
+
         .custom-button:focus {
             outline: none;
             box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
         }
+
+        .upload-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .upload-container input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        .uploaded-images {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .uploaded-images div {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .uploaded-images img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+
     }
 }
-

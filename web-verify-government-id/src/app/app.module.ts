@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { FormComponent } from './form/form.component';
 import { UploadComponent } from './upload/upload.component';
 import { CameraComponent } from './camera/camera.component';
+import { NgxFileDropModule } from 'ngx-file-drop';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { CameraComponent } from './camera/camera.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxFileDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
