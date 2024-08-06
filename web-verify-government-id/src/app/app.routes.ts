@@ -5,7 +5,7 @@ import { CameraComponent } from './camera/camera.component';
 
 export const routes: Routes = [
   { path: 'form', component: FormComponent },
-  { path: 'upload', component: UploadComponent },
+  { path: 'upload', loadChildren: () => import('./upload/upload.module').then(m => m.UploadModule) },
   { path: 'camera', component: CameraComponent },
   { path: '', redirectTo: '/form', pathMatch: 'full' } // Redirect đến form nếu đường dẫn rỗng
 ];

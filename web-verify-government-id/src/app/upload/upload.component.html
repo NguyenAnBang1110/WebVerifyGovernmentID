@@ -1,12 +1,11 @@
 <div class="container upload-container">
     <h2>Upload Your Photos</h2>
-    <input type="file" (change)="uploadFile($event)" />
+    <input type="file" (change)="uploadFile($event)" accept="image/*" />
 
-    <ngx-file-drop dropZoneLabel="Kéo và thả ảnh vào đây" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
-        (onFileLeave)="fileLeave($event)">
-        <ngx-file-drop-content>
+    <ngx-file-drop (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" accept="image/*">
+        <div ngx-file-drop-content>
             <p>Kéo và thả ảnh vào đây</p>
-        </ngx-file-drop-content>
+        </div>
     </ngx-file-drop>
 
     <div class="uploaded-images">
