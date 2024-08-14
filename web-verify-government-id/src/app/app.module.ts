@@ -7,6 +7,8 @@ import { UploadComponent } from './upload/upload.component';
 import { CameraComponent } from './camera/camera.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { CommonModule } from '@angular/common';
+import { provideHttpClient } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -18,9 +20,10 @@ import { CommonModule } from '@angular/common';
     BrowserModule,
     CommonModule,
     NgxFileDropModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule,
   ],
-  providers: [],
+  providers: [provideHttpClient()], // add it here
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

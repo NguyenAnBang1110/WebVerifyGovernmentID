@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { NgxFileDropModule, NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+import { API_URL } from '../constant';
 
 @Component({
   selector: 'app-upload',
@@ -9,6 +12,8 @@ import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 
 export class UploadComponent {
   public files: NgxFileDropEntry[] = [];
   public uploadedFiles: string[] = [];
+
+  constructor(private http: HttpClient) {}
 
   public dropped(files: NgxFileDropEntry[]) {
     this.files = files;
@@ -22,6 +27,7 @@ export class UploadComponent {
               this.uploadedFiles.push(e.target.result);
             };
             reader.readAsDataURL(file);
+            this.uploadImage(file);
           } else {
             alert('Only image files are allowed!');
           }
@@ -33,11 +39,11 @@ export class UploadComponent {
     }
   }
 
-  public fileOver(event: any){
+  public fileOver(event: any) {
     console.log(event);
   }
 
-  public fileLeave(event: any){
+  public fileLeave(event: any) {
     console.log(event);
   }
 
@@ -50,10 +56,27 @@ export class UploadComponent {
           this.uploadedFiles.push(e.target.result);
         };
         reader.readAsDataURL(file);
+        this.uploadImage(file);
       } else {
         alert('Only image files are allowed!');
       }
     }
+  }
+
+  private uploadImage(file: File) {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa('admin:admin123') // Đổi username:password theo cấu hình của bạn
+    });
+
+    this.http.post(`${API_URL}/images/upload`, formData, { headers: headers })
+      .subscribe(response => {
+        console.log('Upload successful', response);
+      }, error => {
+        console.error('Upload failed', error);
+      });
   }
 }
 
