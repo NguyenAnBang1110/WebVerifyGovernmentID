@@ -1,11 +1,9 @@
 import { Routes } from '@angular/router';
 import { FormComponent } from './form/form.component';
-import { UploadComponent } from './upload/upload.component';
-import { CameraComponent } from './camera/camera.component';
 
 export const routes: Routes = [
   { path: 'form', component: FormComponent },
   { path: 'upload', loadChildren: () => import('./upload/upload.module').then(m => m.UploadModule) },
-  { path: 'camera', component: CameraComponent },
+  { path: 'camera', loadChildren: () => import('./camera/camera.module').then(m => m.CameraModule) },
   { path: '', redirectTo: '/form', pathMatch: 'full' } // Redirect đến form nếu đường dẫn rỗng
 ];

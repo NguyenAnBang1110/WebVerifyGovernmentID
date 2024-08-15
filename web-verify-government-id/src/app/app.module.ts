@@ -13,8 +13,7 @@ import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
-    FormComponent,
-    CameraComponent
+    FormComponent
   ],
   imports: [
     BrowserModule,
