@@ -49,31 +49,5 @@
             box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
         }
 
-        .upload-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .upload-container input[type="file"] {
-            margin-bottom: 20px;
-        }
-
-        .uploaded-images {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .uploaded-images div {
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-
-        .uploaded-images img {
-            max-width: 200px;
-            max-height: 200px;
-        }
-
     }
 }

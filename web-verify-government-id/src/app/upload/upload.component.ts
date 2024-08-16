@@ -13,6 +13,9 @@ export class UploadComponent {
   public files: NgxFileDropEntry[] = [];
   public uploadedFiles: string[] = [];
 
+  public ocrText: any = '';
+  public saveToFile: boolean = false; // Biến để kiểm soát việc lưu kết quả vào file
+
   constructor(private http: HttpClient) {}
 
   public dropped(files: NgxFileDropEntry[]) {
@@ -71,9 +74,12 @@ export class UploadComponent {
       'Authorization': 'Basic ' + btoa('admin:admin123') // Đổi username:password theo cấu hình của bạn
     });
 
-    this.http.post(`${API_URL}/images/upload`, formData, { headers: headers })
+    this.http.post(`${API_URL}/images/upload?saveToFile=` + this.saveToFile, formData, { headers: headers, responseType: 'text' })
       .subscribe(response => {
+        debugger
         console.log('Upload successful', response);
+        this.ocrText = response;
+        console.log('OCR Result:', this.ocrText);
       }, error => {
         console.error('Upload failed', error);
       });

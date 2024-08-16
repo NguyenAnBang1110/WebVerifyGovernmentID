@@ -1,16 +1,37 @@
 <div class="container upload-container">
-    <h2>Upload Your Photos</h2>
-    <input type="file" (change)="uploadFile($event)" accept="image/*" />
+    <h2 class="title">Upload Your Photos</h2>
 
-    <ngx-file-drop (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" accept="image/*">
+    <!-- Khu vực chọn file -->
+    <div class="file-input-container">
+        <label for="file-input" class="custom-file-input">
+            <span>Select Image</span>
+            <input id="file-input" type="file" (change)="uploadFile($event)" accept="image/*" />
+        </label>
+    </div>
+
+    <!-- Khu vực kéo thả file -->
+    <ngx-file-drop (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)"
+        accept="image/*" class="file-drop-container">
         <div ngx-file-drop-content>
-            <p>Kéo và thả ảnh vào đây</p>
+            <p>Drag and drop your image here</p>
         </div>
     </ngx-file-drop>
 
+    <!-- Hiển thị các hình ảnh đã tải lên -->
     <div class="uploaded-images">
-        <div *ngFor="let img of uploadedFiles">
-            <img [src]="img" alt="Uploaded Image" />
+        <div *ngFor="let img of uploadedFiles" class="image-wrapper">
+            <img [src]="img" alt="Uploaded Image" class="uploaded-image" />
         </div>
+    </div>
+
+    <!-- Checkbox để lưu kết quả OCR vào file -->
+    <label class="save-checkbox">
+        <input type="checkbox" [(ngModel)]="saveToFile" /> Save OCR result to file
+    </label>
+
+    <!-- Khu vực hiển thị kết quả OCR -->
+    <div *ngIf="ocrText" class="ocr-result">
+        <h3>OCR Result:</h3>
+        <textarea [value]="ocrText" rows="10" cols="50" readonly></textarea>
     </div>
 </div>

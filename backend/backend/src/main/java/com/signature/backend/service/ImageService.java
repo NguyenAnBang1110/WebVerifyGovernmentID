@@ -23,7 +23,10 @@ public class ImageService {
     @Autowired
     private ImageRepository imageRepository;
 
-    public Image saveImage(MultipartFile file) throws IOException {
+    @Autowired
+    private OcrService ocrService;
+
+    public String saveImage(MultipartFile file, boolean saveToFile) throws IOException {
         // Tạo tên file duy nhất dựa trên thời gian hiện tại
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
 
@@ -37,7 +40,19 @@ public class ImageService {
         Image image = new Image();
         image.setName(file.getOriginalFilename());
         image.setPath(filePath.toString());
-        return imageRepository.save(image);
+        imageRepository.save(image);
+
+        // Thực hiện OCR trên file đã lưu
+        String ocrText = "";
+        try {
+            ocrText = ocrService.extractTextFromImage(file, saveToFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Xử lý ngoại lệ nếu cần
+        }
+
+        // Trả về kết quả OCR
+        return ocrText;
     }
 }
 

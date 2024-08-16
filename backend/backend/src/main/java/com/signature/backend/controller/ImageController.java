@@ -17,9 +17,9 @@ public class ImageController {
     private ImageService imageService;
 
     @PostMapping("/upload")
-    public Image uploadImage(@RequestParam("file") MultipartFile file) {
+    public String  uploadImage(@RequestParam("file") MultipartFile file, @RequestParam(value = "saveToFile", defaultValue = "false") boolean saveToFile) {
         try {
-            return imageService.saveImage(file);
+            return imageService.saveImage(file, saveToFile);
         } catch (IOException e) {
             throw new RuntimeException("Failed to upload image", e);
         }
