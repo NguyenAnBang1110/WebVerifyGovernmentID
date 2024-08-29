@@ -26,7 +26,7 @@ public class ImageService {
     @Autowired
     private OcrService ocrService;
 
-    public String saveImage(MultipartFile file, boolean saveToFile) throws IOException {
+    public String saveImage(MultipartFile file, boolean isGoogleCloudOCR) throws IOException {
         // Tạo tên file duy nhất dựa trên thời gian hiện tại
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
 
@@ -45,7 +45,7 @@ public class ImageService {
         // Thực hiện OCR trên file đã lưu
         String ocrText = "";
         try {
-            ocrText = ocrService.extractTextFromImage(file, saveToFile);
+            ocrText = ocrService.extractTextFromImage(file, isGoogleCloudOCR);
         } catch (Exception e) {
             e.printStackTrace();
             // Xử lý ngoại lệ nếu cần

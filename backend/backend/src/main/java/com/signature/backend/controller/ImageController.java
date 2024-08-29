@@ -17,9 +17,9 @@ public class ImageController {
     private ImageService imageService;
 
     @PostMapping("/upload")
-    public String  uploadImage(@RequestParam("file") MultipartFile file, @RequestParam(value = "saveToFile", defaultValue = "false") boolean saveToFile) {
+    public String uploadImage(@RequestParam("file") MultipartFile file, @RequestParam(value = "isGoogleCloudOCR", defaultValue = "false") boolean isGoogleCloudOCR) {
         try {
-            return imageService.saveImage(file, saveToFile);
+            return imageService.saveImage(file, isGoogleCloudOCR);
         } catch (IOException e) {
             throw new RuntimeException("Failed to upload image", e);
         }

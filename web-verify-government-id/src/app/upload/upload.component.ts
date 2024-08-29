@@ -14,7 +14,7 @@ export class UploadComponent {
   public uploadedFiles: string[] = [];
 
   public ocrText: any = '';
-  public saveToFile: boolean = false; // Biến để kiểm soát việc lưu kết quả vào file
+  public isGoogleCloudOCR: boolean = false; // Biến để kiểm soát việc lưu kết quả vào file
 
   constructor(private http: HttpClient) {}
 
@@ -74,7 +74,7 @@ export class UploadComponent {
       'Authorization': 'Basic ' + btoa('admin:admin123') // Đổi username:password theo cấu hình của bạn
     });
 
-    this.http.post(`${API_URL}/images/upload?saveToFile=` + this.saveToFile, formData, { headers: headers, responseType: 'text' })
+    this.http.post(`${API_URL}/images/upload?isGoogleCloudOCR=` + this.isGoogleCloudOCR, formData, { headers: headers, responseType: 'text' })
       .subscribe(response => {
         debugger
         console.log('Upload successful', response);

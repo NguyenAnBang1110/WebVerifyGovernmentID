@@ -91,6 +91,12 @@
             <artifactId>opencv-platform</artifactId>
             <version>4.9.0-1.5.10</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.cloud/google-cloud-vision -->
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-vision</artifactId>
+            <version>3.46.0</version>
+        </dependency>
     </dependencies>
 
     <build>

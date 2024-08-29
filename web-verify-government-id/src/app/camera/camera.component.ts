@@ -1,4 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
+import { API_URL } from '../constant';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-camera',
@@ -11,47 +13,34 @@ export class CameraComponent {
   @ViewChild('frontCanvas') frontCanvas!: ElementRef;
   @ViewChild('backCanvas') backCanvas!: ElementRef;
 
-  // ngAfterViewInit() {
-  //   if (typeof navigator !== 'undefined' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-  //     navigator.mediaDevices.getUserMedia({ video: true })
-  //       .then(stream => {
-  //         this.frontVideo.nativeElement.srcObject = stream;
-  //         this.backVideo.nativeElement.srcObject = stream;
-  //       })
-  //       .catch(err => {
-  //         console.error('Camera not accessible: ', err);
-  //       });
-  //   } else {
-  //     console.error('Navigator is not available in this environment.');
-  //   }
-  // }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
     if (typeof navigator !== 'undefined') {
       navigator.mediaDevices.getUserMedia({ video: true })
-      .then(stream => {
-        stream.getTracks().forEach(track => track.stop()); // Dừng stream để reset camera
-        this.requestCamera();
-      })
-      .catch(() => {
-        console.error('Permission denied');
-      });
+        .then(stream => {
+          stream.getTracks().forEach(track => track.stop()); // Dừng stream để reset camera
+          this.requestCamera();
+        })
+        .catch(() => {
+          console.error('Permission denied');
+        });
     }
   }
-  
+
   requestCamera() {
     if (navigator && typeof navigator !== 'undefined') {
       navigator.mediaDevices.getUserMedia({ video: true })
-      .then(stream => {
-        this.frontVideo.nativeElement.srcObject = stream;
-        this.backVideo.nativeElement.srcObject = stream;
-      })
-      .catch(err => {
-        console.error('Camera not accessible:', err);
-      });
+        .then(stream => {
+          this.frontVideo.nativeElement.srcObject = stream;
+          this.backVideo.nativeElement.srcObject = stream;
+        })
+        .catch(err => {
+          console.error('Camera not accessible:', err);
+        });
     }
   }
-  
+
 
   captureImage(side: string) {
     const canvas = side === 'front' ? this.frontCanvas.nativeElement : this.backCanvas.nativeElement;
@@ -60,6 +49,36 @@ export class CameraComponent {
   }
 
   confirm() {
-    // Xử lý logic sau khi người dùng nhấn nút Xác Nhận
+    debugger
+    const formData: FormData = new FormData();
+
+    const frontBlob = this.dataURItoBlob(this.frontCanvas.nativeElement.toDataURL('image/png'));
+    const backBlob = this.dataURItoBlob(this.backCanvas.nativeElement.toDataURL('image/png'));
+
+    formData.append('frontImage', frontBlob, 'frontImage.png');
+    formData.append('backImage', backBlob, 'backImage.png');
+
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa('admin:admin123') // Cập nhật username:password theo cấu hình của bạn
+    });
+
+    this.http.post(`${API_URL}/face/compare`, formData, { headers: headers })
+      .subscribe(response => {
+        debugger
+        console.log('Face comparison result:', response);
+      }, error => {
+        console.error('Face comparison failed', error);
+      });
   }
+
+  dataURItoBlob(dataURI: string) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], { type: 'image/png' });
+  }
+
 }
