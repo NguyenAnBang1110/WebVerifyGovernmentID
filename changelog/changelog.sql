@@ -13,3 +13,11 @@ CREATE TABLE USER (
     NoiThuongTru VARCHAR(255) NOT NULL,
     AnhCMT LONGBLOB -- Lưu file ảnh dưới dạng binary
 );
+
+-- Bảng lưu tài khoản fix sẵn
+CREATE TABLE account (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    roleid BIGINT default 1
+);

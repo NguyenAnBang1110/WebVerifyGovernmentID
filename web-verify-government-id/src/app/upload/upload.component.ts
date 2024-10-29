@@ -70,11 +70,7 @@ export class UploadComponent {
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
 
-    const headers = new HttpHeaders({
-      'Authorization': 'Basic ' + btoa('admin:admin123') // Đổi username:password theo cấu hình của bạn
-    });
-
-    this.http.post(`${API_URL}/images/upload?isGoogleCloudOCR=` + this.isGoogleCloudOCR, formData, { headers: headers, responseType: 'text' })
+    this.http.post(`${API_URL}/images/upload?isGoogleCloudOCR=` + this.isGoogleCloudOCR, formData)
       .subscribe(response => {
         debugger
         console.log('Upload successful', response);

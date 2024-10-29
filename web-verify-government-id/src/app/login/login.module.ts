@@ -1,19 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UploadComponent } from './upload.component';
+import { LoginComponent } from './login.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 import { JwtInterceptor } from '../jwt.interceptor';
 
+
 @NgModule({
-  declarations: [UploadComponent],
+  declarations: [LoginComponent],
   imports: [
     CommonModule,
     NgxFileDropModule,
     FormsModule,
-    RouterModule.forChild([{ path: '', component: UploadComponent }])
+    MatDialogModule,
+    ReactiveFormsModule,
+    RouterModule.forChild([{ path: '', component: LoginComponent }])
   ],
   providers: [
     provideHttpClient(
@@ -21,4 +25,4 @@ import { JwtInterceptor } from '../jwt.interceptor';
     ),
   ],
 })
-export class UploadModule { }
+export class LoginModule { }

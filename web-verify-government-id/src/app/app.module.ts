@@ -7,23 +7,32 @@ import { UploadComponent } from './upload/upload.component';
 import { CameraComponent } from './camera/camera.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { CommonModule } from '@angular/common';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+
+// Import the JwtInterceptor
+import { JwtInterceptor } from './jwt.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FormComponent
+    FormComponent,
+    UploadComponent,
+    CameraComponent,
   ],
   imports: [
     BrowserModule,
     CommonModule,
     NgxFileDropModule,
-    AppRoutingModule,
+    AppRoutingModule, 
     RouterModule,
   ],
-  providers: [provideHttpClient()], // add it here
+  providers: [
+    provideHttpClient(
+      withInterceptors([JwtInterceptor]) // Register the functional interceptor here
+    ),
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

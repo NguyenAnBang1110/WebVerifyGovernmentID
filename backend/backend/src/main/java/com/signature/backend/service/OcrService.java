@@ -30,7 +30,7 @@ public class OcrService {
     @Autowired
     private GoogleVisionOcrService googleVisionOcrService;
 
-    private static final String TESSERACT_DATA_PATH = CorsConstants.TESSERACT_lANGUAGE_FOLDER; // Đường dẫn tới thư mục dữ liệu Tesseract
+    private static final String TESSERACT_DATA_PATH = CorsConstants.TESSERACT_LANGUAGE_FOLDER; // Đường dẫn tới thư mục dữ liệu Tesseract
     private static final String OUTPUT_TEXT_PATH = CorsConstants.TESSERACT_OCR_OUTPUT; // Đường dẫn tới thư mục lưu file OCR output
 
     public String extractTextFromImage(MultipartFile file, boolean isGoogleCloudOCR) throws IOException, TesseractException {

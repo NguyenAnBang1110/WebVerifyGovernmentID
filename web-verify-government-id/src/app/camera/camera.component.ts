@@ -58,11 +58,7 @@ export class CameraComponent {
     formData.append('frontImage', frontBlob, 'frontImage.png');
     formData.append('backImage', backBlob, 'backImage.png');
 
-    const headers = new HttpHeaders({
-      'Authorization': 'Basic ' + btoa('admin:admin123') // Cập nhật username:password theo cấu hình của bạn
-    });
-
-    this.http.post(`${API_URL}/face/compare`, formData, { headers: headers })
+    this.http.post(`${API_URL}/face/compare`, formData)
       .subscribe(response => {
         debugger
         console.log('Face comparison result:', response);

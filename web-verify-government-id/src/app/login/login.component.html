@@ -1,0 +1,39 @@
+<div class="login-container">
+    <div *ngIf="!showLoginForm" class="instruction">
+        <i class="fas fa-info-circle attention-icon"></i>
+        <p>
+            Đây là hệ thống đăng ký tham gia triển lãm. Nếu bạn chưa đăng ký, vui lòng nhấn vào nút <b>Đăng ký</b> bên dưới.
+            Nếu đã đăng ký, nhấn <b>Đăng nhập</b> để xem thông tin.
+        </p>
+    </div>
+
+    <div *ngIf="!showLoginForm" class="button-group">
+        <button mat-raised-button color="primary" (click)="showLogin()">Đăng nhập</button>
+        <button mat-raised-button color="accent" (click)="redirectToRegister()">Đăng ký</button>
+    </div>
+
+    <form *ngIf="showLoginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-field">
+            <label for="username">Tài khoản</label>
+            <input matInput id="username" formControlName="username" placeholder="Nhập tài khoản" />
+            <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="error">
+                Tài khoản là bắt buộc.
+            </div>
+        </div>
+
+        <div class="form-field">
+            <label for="password">Mật khẩu</label>
+            <input matInput id="password" type="password" formControlName="password" placeholder="Nhập mật khẩu" />
+            <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error">
+                Mật khẩu là bắt buộc.
+            </div>
+        </div>
+
+        <!-- Hiển thị thông báo lỗi đăng nhập chung -->
+        <div *ngIf="loginError" class="error">
+            {{ loginError }}
+        </div>
+
+        <button mat-raised-button color="primary" type="submit">Đăng nhập</button>
+    </form>
+</div>

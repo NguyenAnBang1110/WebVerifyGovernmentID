@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CameraComponent } from './camera.component';
 import { RouterModule } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
+import { JwtInterceptor } from '../jwt.interceptor';
 
 @NgModule({
   declarations: [CameraComponent],
@@ -12,6 +13,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule,
     RouterModule.forChild([{ path: '', component: CameraComponent }])
   ],
-  providers: [provideHttpClient()], // add it here
+  providers: [
+    provideHttpClient(
+      withInterceptors([JwtInterceptor]) // Register the functional interceptor here
+    ),
+  ],
 })
 export class CameraModule { }

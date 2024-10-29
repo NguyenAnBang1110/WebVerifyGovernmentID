@@ -9,7 +9,7 @@ import { Router, RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'web-verify-government-id';
+  title = 'Hệ thống quản lý triển lãm';
 
   constructor(private router: Router) {}
 
